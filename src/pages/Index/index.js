@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaTrashAlt, FaEdit } from 'react-icons/fa';
+import { FaTrashAlt, FaEdit, FaPlus } from 'react-icons/fa';
 // import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -8,7 +8,7 @@ import {
   TableContas,
   TableContasMinMax,
   IndexContainer,
-  Button,
+  CadastrarContaLink,
 } from './styled';
 
 import axios from '../../services/axios';
@@ -79,7 +79,10 @@ export default function Index() {
         </TableContasMinMax>
         {/* TODO: adicionar icone */}
 
-        <Button type="submit">+</Button>
+        <CadastrarContaLink id="cadastrar-conta-link" to="cadastrar/">
+          <FaPlus size={30} />
+        </CadastrarContaLink>
+
         <TableContas>
           <thead>
             <tr>

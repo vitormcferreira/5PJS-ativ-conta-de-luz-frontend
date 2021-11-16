@@ -1,14 +1,30 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import * as colors from '../../config/colors';
 
 export const IndexContainer = styled.section`
   display: grid;
   grid-template-areas:
     'title               title        title       '
-    'table-contas-minmax ............ btn         '
+    'table-contas-minmax ............ link         '
     'table-contas        table-contas table-contas';
   grid-template-columns: 1fr 1fr 1fr;
   /* grid-template-rows: auto; */
   gap: 20px;
+`;
+
+export const CadastrarContaLink = styled(Link)`
+  grid-area: link;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  height: fit-content;
+  justify-self: flex-end;
+  color: ${colors.primarylightColor};
+  background-color: ${colors.primaryDarkColor};
+  padding: 5px;
+  border-radius: 50%;
 `;
 
 export const TableContasMinMax = styled.table`
@@ -20,13 +36,6 @@ export const TableContasMinMax = styled.table`
   }
   border-collapse: collapse;
   overflow-x: auto;
-`;
-
-export const Button = styled.button`
-  grid-area: btn;
-  width: fit-content;
-  height: fit-content;
-  justify-self: right;
 `;
 
 export const TableContas = styled.table`

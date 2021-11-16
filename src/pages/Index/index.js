@@ -2,6 +2,7 @@ import React from 'react';
 import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 // import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { Container } from '../../styles/GlobalStyles';
 import {
   TableContas,
@@ -19,15 +20,40 @@ export default function Index() {
   const [contas, setContas] = React.useState([]);
   const [minMaxValor, setMinMaxValor] = React.useState({});
 
+  // Atualiza a tabela de valores min e max.
+  // Esta função deve ser executada sempre que uma conta for
+  // apagada, editada ou inserida
+  const atualizarMinMaxValor = async () => {
+    const responseMinMaxValor = await axios.get('min_max_valor/');
+    setMinMaxValor(responseMinMaxValor.data);
+  };
+
   // executado quando o componente é renderizado
   React.useEffect(() => {
     async function getData() {
-      const response = await axios.get('contas/');
-      setContas(response.data.contas);
-      setMinMaxValor(response.data.minMaxValor);
+      const responseContas = await axios.get('contas/');
+      setContas(responseContas.data);
+      await atualizarMinMaxValor();
     }
     getData();
   }, []);
+
+  const handleDelete = async (id, index) => {
+    try {
+      await axios.delete(`contas/${id}/`);
+
+      // remove a conta da lista de contas
+      const temp = [...contas];
+      temp.splice(index, 1);
+      setContas(temp);
+
+      await atualizarMinMaxValor();
+
+      toast.success('Conta apagada com sucesso');
+    } catch (e) {
+      toast.error('Erro ao apagar conta');
+    }
+  };
 
   // function handleClick(e) {
   //   e.preventDefault();
@@ -60,8 +86,8 @@ export default function Index() {
             <th>data pagto</th>
             <th>media consumo</th>
           </tr>
-          {contas.map((conta) => (
-            <tr>
+          {contas.map((conta, index) => (
+            <tr key={String(conta.id)}>
               <td>{conta.data_leitura_relogio}</td>
               <td>{conta.numero_leitura}</td>
               <td>{conta.kw}</td>
@@ -74,9 +100,11 @@ export default function Index() {
                 </Link>
               </td>
               <td>
-                <Link to={`conta/${conta.id}/delete`} title="Apagar">
-                  <FaTrashAlt />
-                </Link>
+                <FaTrashAlt
+                  title="Apagar"
+                  onClick={() => handleDelete(conta.id, index)}
+                  cursor="pointer"
+                />
               </td>
             </tr>
           ))}

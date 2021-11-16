@@ -1,8 +1,9 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import {
-  primaryColor,
   primarylightColor,
   primaryDarkColor,
+  primaryColor,
+  primaryGrayColor,
 } from '../config/colors';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -23,27 +24,12 @@ export default createGlobalStyle`
     height: 100%;
   }
 
-  button {
-    cursor: pointer;
-    background-color: ${primaryColor};
-    border: none;
-    color: ${primarylightColor};
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-weight: 700;
-    border: 1px solid ${primarylightColor};
-  }
-
   button:active {
     border-color: ${primaryDarkColor};
   }
 
   a {
     text-decoration: none;
-  }
-
-  ul {
-    list-style: none;
   }
 `;
 
@@ -61,4 +47,33 @@ export const Title = styled.h1`
   justify-self: center;
   margin-bottom: 30px;
   font-size: 40px;
+`;
+
+export const Input = styled.input`
+  font-size: 20px;
+  padding: 10px;
+  border: 2px solid ${primaryGrayColor};
+  border-radius: 5px;
+`;
+
+const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.4em;
+  padding: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+
+export const LightButton = styled(Button)`
+  background-color: ${primarylightColor};
+  color: ${primaryColor};
+  border: 1px solid ${primaryColor};
+`;
+
+export const DarkButton = styled(Button)`
+  background-color: ${primaryColor};
+  color: ${primarylightColor};
+  border: 1px solid ${primaryColor};
 `;

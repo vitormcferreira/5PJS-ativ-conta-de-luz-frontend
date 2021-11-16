@@ -22,9 +22,16 @@ export const CadastrarContaLink = styled(Link)`
   height: fit-content;
   justify-self: flex-end;
   color: ${colors.primarylightColor};
-  background-color: ${colors.primaryDarkColor};
+  background-color: ${colors.primaryColor};
   padding: 5px;
   border-radius: 50%;
+  transition: all 200ms ease-in-out;
+
+  &:hover {
+    color: ${colors.primaryColor};
+    background-color: ${colors.primarylightColor};
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  }
 `;
 
 export const TableContasMinMax = styled.table`

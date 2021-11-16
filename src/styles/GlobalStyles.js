@@ -31,6 +31,10 @@ export default createGlobalStyle`
   a {
     text-decoration: none;
   }
+
+  .error {
+    color:red;
+  }
 `;
 
 export const Container = styled.section`
@@ -64,16 +68,33 @@ const Button = styled.button`
   padding: 15px;
   border-radius: 5px;
   cursor: pointer;
+  transition: all 200ms ease-in-out;
 `;
 
 export const LightButton = styled(Button)`
   background-color: ${primarylightColor};
   color: ${primaryColor};
   border: 1px solid ${primaryColor};
+
+  &:hover {
+    background-color: ${primaryColor};
+    color: ${primarylightColor};
+    border: 1px solid ${primaryColor};
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  }
 `;
 
 export const DarkButton = styled(Button)`
   background-color: ${primaryColor};
   color: ${primarylightColor};
   border: 1px solid ${primaryColor};
+
+  &:hover {
+    background-color: ${primarylightColor};
+    color: ${primaryColor};
+    border: 1px solid ${primaryColor};
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  }
 `;
+
+export const Message = styled.div``;

@@ -64,49 +64,57 @@ export default function Index() {
       <IndexContainer>
         <Title>Contas de Luz</Title>
         <TableContasMinMax>
-          <tr>
-            <th>Menor valor</th>
-            <th>Maior valor</th>
-          </tr>
-          <tr>
-            <td>{minMaxValor.minValor}</td>
-            <td>{minMaxValor.maxValor}</td>
-          </tr>
+          <thead>
+            <tr>
+              <th>Menor valor</th>
+              <th>Maior valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{minMaxValor.minValor}</td>
+              <td>{minMaxValor.maxValor}</td>
+            </tr>
+          </tbody>
         </TableContasMinMax>
         {/* TODO: adicionar icone */}
 
         <Button type="submit">+</Button>
         <TableContas>
-          <tr>
-            <th>data leitura</th>
-            <th>nº leitura</th>
-            <th>kw gasto</th>
-            <th>valor a pagar</th>
-            <th>data pagto</th>
-            <th>media consumo</th>
-          </tr>
-          {contas.map((conta, index) => (
-            <tr key={String(conta.id)}>
-              <td>{conta.data_leitura_relogio}</td>
-              <td>{conta.numero_leitura}</td>
-              <td>{conta.kw}</td>
-              <td>{conta.valor}</td>
-              <td>{conta.data_pagamento}</td>
-              <td>{conta.media_consumo}</td>
-              <td>
-                <Link to={`conta/${conta.id}/edit`} title="Editar">
-                  <FaEdit />
-                </Link>
-              </td>
-              <td>
-                <FaTrashAlt
-                  title="Apagar"
-                  onClick={() => handleDelete(conta.id, index)}
-                  cursor="pointer"
-                />
-              </td>
+          <thead>
+            <tr>
+              <th>data leitura</th>
+              <th>nº leitura</th>
+              <th>kw gasto</th>
+              <th>valor a pagar</th>
+              <th>data pagto</th>
+              <th>media consumo</th>
             </tr>
-          ))}
+          </thead>
+          <tbody>
+            {contas.map((conta, index) => (
+              <tr key={String(conta.id)}>
+                <td>{conta.data_leitura_relogio}</td>
+                <td>{conta.numero_leitura}</td>
+                <td>{conta.kw}</td>
+                <td>{conta.valor}</td>
+                <td>{conta.data_pagamento}</td>
+                <td>{conta.media_consumo}</td>
+                <td>
+                  <Link to={`conta/${conta.id}/edit`} title="Editar">
+                    <FaEdit />
+                  </Link>
+                </td>
+                <td>
+                  <FaTrashAlt
+                    title="Apagar"
+                    onClick={() => handleDelete(conta.id, index)}
+                    cursor="pointer"
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </TableContas>
       </IndexContainer>
     </Container>

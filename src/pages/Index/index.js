@@ -104,7 +104,7 @@ export default function Index() {
                 <td>{conta.data_pagamento}</td>
                 <td>{conta.media_consumo}</td>
                 <td>
-                  <Link to={`conta/${conta.id}/edit`} title="Editar">
+                  <Link to={`editar/${conta.id}/`} title="Editar">
                     <FaEdit />
                   </Link>
                 </td>

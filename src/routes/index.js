@@ -11,7 +11,7 @@ export default function Routes() {
     <Switch>
       <Route exact path="/" component={Index} />
       <Route exact path="/cadastrar/" component={CadastrarConta} />
-      <Route exact path="/detalhes/:id/" component={EditarConta} />
+      <Route exact path="/editar/:id/" component={EditarConta} />
       <Route path="*" component={Page404} />
     </Switch>
   );

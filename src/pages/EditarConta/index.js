@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { toast } from 'react-toastify';
@@ -74,14 +75,24 @@ export default function EditarConta(props) {
   return (
     <Container>
       <CadastrarContaContainer>
-        <Title>Cadastrar conta de Luz</Title>
+        <Title>Editar conta de luz</Title>
         <Form>
           <div className="fields">
-            <div>
-              <label htmlFor="data_leitura_relogio">
+            <div className="field-group">
+              <label htmlFor="old_data_leitura_relogio">
                 Data de leitura do relógio:
               </label>
-              {exibeErrors(dataLeituraRelogioErrors)}
+              <Input
+                type="date"
+                name="old_data_leitura_relogio"
+                id="old_data_leitura_relogio"
+                disabled
+              />
+
+              <label htmlFor="data_leitura_relogio">
+                Nova data de leitura do relógio:
+              </label>
+              <div>{exibeErrors(dataLeituraRelogioErrors)}</div>
               <Input
                 type="date"
                 name="data_leitura_relogio"
@@ -90,51 +101,91 @@ export default function EditarConta(props) {
               />
             </div>
 
-            <label htmlFor="numero_leitura">Número da leitura:</label>
-            {exibeErrors(numeroLeituraErrors)}
-            <Input
-              type="number"
-              name="numero_leitura"
-              id="numero_leitura"
-              onChange={(e) => setNumeroLeitura(e.target.value)}
-            />
+            <div className="field-group">
+              <label htmlFor="old_numero_leitura">Número da leitura:</label>
+              <Input
+                type="number"
+                name="old_numero_leitura"
+                id="old_numero_leitura"
+                disabled
+              />
 
-            <label htmlFor="kw">KW:</label>
-            {exibeErrors(kwErrors)}
-            <Input
-              type="number"
-              name="kw"
-              id="kw"
-              onChange={(e) => setKw(e.target.value)}
-            />
+              <label htmlFor="numero_leitura">Novo número da leitura:</label>
+              <div>{exibeErrors(numeroLeituraErrors)}</div>
+              <Input
+                type="number"
+                name="numero_leitura"
+                id="numero_leitura"
+                onChange={(e) => setNumeroLeitura(e.target.value)}
+              />
+            </div>
 
-            <label htmlFor="valor">Valor:</label>
-            {exibeErrors(valorErrors)}
-            <Input
-              type="number"
-              name="valor"
-              id="valor"
-              onChange={(e) => setValor(e.target.value)}
-            />
+            <div className="field-group">
+              <label htmlFor="old_kw">KW:</label>
+              <Input type="number" name="old_kw" id="old_kw" disabled />
 
-            <label htmlFor="data_pagamento">Data do pagamento:</label>
-            {exibeErrors(dataPagamentoErrors)}
-            <Input
-              type="date"
-              name="data_pagamento"
-              id="data_pagamento"
-              onChange={(e) => setDataPagamento(e.target.value)}
-            />
+              <label htmlFor="kw">KW:</label>
+              <div>{exibeErrors(kwErrors)}</div>
+              <Input
+                type="number"
+                name="kw"
+                id="kw"
+                onChange={(e) => setKw(e.target.value)}
+              />
+            </div>
 
-            <label htmlFor="media_consumo">Média de consumo:</label>
-            {exibeErrors(mediaConsumoErrors)}
-            <Input
-              type="number"
-              name="media_consumo"
-              id="media_consumo"
-              onChange={(e) => setMediaConsumo(e.target.value)}
-            />
+            <div className="field-group">
+              <label htmlFor="old_valor">Valor:</label>
+              <Input type="number" name="old_valor" id="old_valor" disabled />
+
+              <label htmlFor="valor">Valor:</label>
+              <div>{exibeErrors(valorErrors)}</div>
+              <Input
+                type="number"
+                name="valor"
+                id="valor"
+                onChange={(e) => setValor(e.target.value)}
+              />
+            </div>
+
+            <div className="field-group">
+              <label htmlFor="old_data_pagamento">Data do pagamento:</label>
+              <Input
+                type="date"
+                name="old_data_pagamento"
+                id="old_data_pagamento"
+                disabled
+              />
+
+              <label htmlFor="data_pagamento">Nova data do pagamento:</label>
+              <div>{exibeErrors(dataPagamentoErrors)}</div>
+              <Input
+                type="date"
+                name="data_pagamento"
+                id="data_pagamento"
+                onChange={(e) => setDataPagamento(e.target.value)}
+              />
+            </div>
+
+            <div className="field-group">
+              <label htmlFor="old_media_consumo">Média de consumo:</label>
+              <Input
+                type="number"
+                name="old_media_consumo"
+                id="old_media_consumo"
+                disabled
+              />
+              <label htmlFor="media_consumo">Nova média de consumo:</label>
+              <div>{exibeErrors(mediaConsumoErrors)}</div>
+              <Input
+                type="number"
+                name="media_consumo"
+                id="media_consumo"
+                onChange={(e) => setMediaConsumo(e.target.value)}
+              />
+            </div>
           </div>
+
           <div className="buttons">
             <LightButton type="reset" onClick={handleCancelar}>
               Cancelar

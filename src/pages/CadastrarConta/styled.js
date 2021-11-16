@@ -16,7 +16,6 @@ export const Form = styled.form`
     display: flex;
     flex-direction: column;
     max-width: 300px;
-    gap: 5px;
 
     input:focus {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);

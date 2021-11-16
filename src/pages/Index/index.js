@@ -1,7 +1,7 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
-
+import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 // import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Container } from '../../styles/GlobalStyles';
 import {
   TableContas,
@@ -17,12 +17,14 @@ import axios from '../../services/axios';
 export default function Index() {
   // const dispatch = useDispatch();
   const [contas, setContas] = React.useState([]);
+  const [minMaxValor, setMinMaxValor] = React.useState({});
 
   // executado quando o componente é renderizado
   React.useEffect(() => {
     async function getData() {
       const response = await axios.get('contas/');
-      setContas(response.data);
+      setContas(response.data.contas);
+      setMinMaxValor(response.data.minMaxValor);
     }
     getData();
   }, []);
@@ -42,13 +44,13 @@ export default function Index() {
             <th>Maior valor</th>
           </tr>
           <tr>
-            <td>R$ 156,69</td>
-            <td>R$ 156,69</td>
+            <td>{minMaxValor.minValor}</td>
+            <td>{minMaxValor.maxValor}</td>
           </tr>
         </TableContasMinMax>
         {/* TODO: adicionar icone */}
+
         <Button type="submit">+</Button>
-        {contas.map((conta) => conta.id)}
         <TableContas>
           <tr>
             <th>data leitura</th>
@@ -58,16 +60,26 @@ export default function Index() {
             <th>data pagto</th>
             <th>media consumo</th>
           </tr>
-          <tr>
-            <td>10/11/2021</td>
-            <td>45621</td>
-            <td>300</td>
-            <td>R$ 156,69</td>
-            <td>01/11/2021</td>
-            <td>100</td>
-            <td>O</td>
-            <td>X</td>
-          </tr>
+          {contas.map((conta) => (
+            <tr>
+              <td>{conta.data_leitura_relogio}</td>
+              <td>{conta.numero_leitura}</td>
+              <td>{conta.kw}</td>
+              <td>{conta.valor}</td>
+              <td>{conta.data_pagamento}</td>
+              <td>{conta.media_consumo}</td>
+              <td>
+                <Link to={`conta/${conta.id}/edit`} title="Editar">
+                  <FaEdit />
+                </Link>
+              </td>
+              <td>
+                <Link to={`conta/${conta.id}/delete`} title="Apagar">
+                  <FaTrashAlt />
+                </Link>
+              </td>
+            </tr>
+          ))}
         </TableContas>
       </IndexContainer>
     </Container>

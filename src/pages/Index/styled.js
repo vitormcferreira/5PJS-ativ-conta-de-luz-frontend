@@ -11,13 +11,6 @@ export const IndexContainer = styled.section`
   gap: 20px;
 `;
 
-export const Title = styled.h1`
-  grid-area: title;
-  justify-self: center;
-  margin-bottom: 30px;
-  font-size: 40px;
-`;
-
 export const TableContasMinMax = styled.table`
   grid-area: table-contas-minmax;
   td,

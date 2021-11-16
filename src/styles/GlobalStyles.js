@@ -55,3 +55,10 @@ export const Container = styled.section`
   border-radius: 4px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 `;
+
+export const Title = styled.h1`
+  grid-area: title;
+  justify-self: center;
+  margin-bottom: 30px;
+  font-size: 40px;
+`;

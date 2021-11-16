@@ -3,12 +3,11 @@ import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 // import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Container } from '../../styles/GlobalStyles';
+import { Container, Title } from '../../styles/GlobalStyles';
 import {
   TableContas,
   TableContasMinMax,
   IndexContainer,
-  Title,
   Button,
 } from './styled';
 

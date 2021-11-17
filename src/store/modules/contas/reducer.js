@@ -2,7 +2,8 @@ import { toast } from 'react-toastify';
 import * as types from '../types';
 
 const initialState = {
-  botaoClicado: false,
+  conta: null,
+  errors: null, // {}
 };
 
 export default function reducer(state = initialState, action) {
@@ -12,14 +13,16 @@ export default function reducer(state = initialState, action) {
     }
 
     case types.EDITAR_CONTA_SUCCESS: {
-      toast.success('Botão clicado com sucesso');
       const newState = { ...state };
-      newState.botaoClicado = !newState.botaoClicado;
+      newState.conta = action.payload.novaConta;
+      toast.success('Conta editada com sucesso');
       return newState;
     }
 
     case types.EDITAR_CONTA_FAILURE: {
-      toast.error('Botão falhou em ser clicado');
+      const newState = { ...state };
+      newState.errors = action.payload.errors;
+      toast.error('Erro ao editar conta');
       return state;
     }
 

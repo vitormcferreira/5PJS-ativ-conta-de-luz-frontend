@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { toast } from 'react-toastify';
-import { get } from 'lodash';
-import { useDispatch, useSelector } from 'react-redux';
+import _ from 'lodash';
 import {
   Container,
   Input,
@@ -13,21 +11,25 @@ import {
 } from '../../styles/GlobalStyles';
 import { CadastrarContaContainer, Form } from './styled';
 
-import * as contaActions from '../../store/modules/contas/actions';
 import history from '../../services/history';
 import axios from '../../services/axios';
 import ErrorMessages from '../../components/ErrorMessages';
 
 export default function EditarConta(props) {
-  const errors = useSelector((state) => state.contasReducer.errors);
-
-  const dispatch = useDispatch();
   const [dataLeituraRelogio, setDataLeituraRelogio] = React.useState('');
   const [numeroLeitura, setNumeroLeitura] = React.useState('');
   const [kw, setKw] = React.useState('');
   const [valor, setValor] = React.useState('');
   const [dataPagamento, setDataPagamento] = React.useState('');
   const [mediaConsumo, setMediaConsumo] = React.useState('');
+
+  const [dataLeituraRelogioErrors, setDataLeituraRelogioErrors] =
+    React.useState([]);
+  const [numeroLeituraErrors, setNumeroLeituraErrors] = React.useState([]);
+  const [kwErrors, setKwErrors] = React.useState([]);
+  const [valorErrors, setValorErrors] = React.useState([]);
+  const [dataPagamentoErrors, setDataPagamentoErrors] = React.useState([]);
+  const [mediaConsumoErrors, setMediaConsumoErrors] = React.useState([]);
 
   const [conta, setConta] = React.useState({
     id: null,
@@ -39,9 +41,18 @@ export default function EditarConta(props) {
     media_consumo: '',
   });
 
+  const salvaErrors = (errors) => {
+    setDataLeituraRelogioErrors(_.get(errors, 'data_leitura_relogio', []));
+    setNumeroLeituraErrors(_.get(errors, 'numero_leitura', []));
+    setKwErrors(_.get(errors, 'kw', []));
+    setValorErrors(_.get(errors, 'valor', []));
+    setDataPagamentoErrors(_.get(errors, 'data_pagamento', []));
+    setMediaConsumoErrors(_.get(errors, 'media_consumo', []));
+  };
+
   React.useEffect(() => {
     async function getData() {
-      const id = get(props, 'match.params.id', null);
+      const id = _.get(props, 'match.params.id', null);
 
       if (!id) {
         toast.error('Selecione uma conta');
@@ -56,24 +67,29 @@ export default function EditarConta(props) {
   }, [props]);
 
   const handleCancelar = () => {
-    const prevPath = get(props, 'location.state.prevPath', '/');
+    const prevPath = _.get(props, 'location.state.prevPath', '/');
     history.push(prevPath);
   };
 
   const handleEditar = async (e) => {
     e.preventDefault();
 
-    dispatch(
-      contaActions.editarContaRequest({
-        id: conta.id,
-        dataLeituraRelogio,
-        numeroLeitura,
-        kw,
-        valor,
-        dataPagamento,
-        mediaConsumo,
-      })
-    );
+    try {
+      const response = await axios.patch(`contas/${conta.id}/`, {
+        data_leitura_relogio: dataLeituraRelogio || undefined,
+        numero_leitura: numeroLeitura || undefined,
+        kw: kw || undefined,
+        valor: valor || undefined,
+        data_pagamento: dataPagamento || undefined,
+        media_consumo: mediaConsumo || undefined,
+      });
+
+      setConta(response.data);
+      toast.success('Conta editada com sucesso');
+    } catch (err) {
+      toast.error('Erro ao salvar');
+      salvaErrors(err.response.data);
+    }
   };
 
   return (
@@ -97,7 +113,7 @@ export default function EditarConta(props) {
               <label htmlFor="data_leitura_relogio">
                 Nova data de leitura do relógio:
               </label>
-              <ErrorMessages errors={['teste']} />
+              <ErrorMessages errors={dataLeituraRelogioErrors} />
               <Input
                 type="date"
                 name="data_leitura_relogio"
@@ -117,7 +133,7 @@ export default function EditarConta(props) {
               />
 
               <label htmlFor="numero_leitura">Novo número da leitura:</label>
-              <ErrorMessages />
+              <ErrorMessages errors={numeroLeituraErrors} />
               <Input
                 type="number"
                 name="numero_leitura"
@@ -137,7 +153,7 @@ export default function EditarConta(props) {
               />
 
               <label htmlFor="kw">Novo KW:</label>
-              <ErrorMessages />
+              <ErrorMessages errors={kwErrors} />
               <Input
                 type="number"
                 name="kw"
@@ -157,7 +173,7 @@ export default function EditarConta(props) {
               />
 
               <label htmlFor="valor">Novo valor:</label>
-              <ErrorMessages />
+              <ErrorMessages errors={valorErrors} />
               <Input
                 type="number"
                 name="valor"
@@ -177,7 +193,7 @@ export default function EditarConta(props) {
               />
 
               <label htmlFor="data_pagamento">Nova data do pagamento:</label>
-              <ErrorMessages />
+              <ErrorMessages errors={dataPagamentoErrors} />
               <Input
                 type="date"
                 name="data_pagamento"
@@ -196,7 +212,7 @@ export default function EditarConta(props) {
                 value={conta.media_consumo}
               />
               <label htmlFor="media_consumo">Nova média de consumo:</label>
-              <ErrorMessages />
+              <ErrorMessages errors={mediaConsumoErrors} />
               <Input
                 type="number"
                 name="media_consumo"

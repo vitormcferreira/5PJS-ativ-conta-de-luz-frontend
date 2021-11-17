@@ -96,5 +96,3 @@ export const DarkButton = styled(Button)`
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   }
 `;
-
-export const Message = styled.div``;

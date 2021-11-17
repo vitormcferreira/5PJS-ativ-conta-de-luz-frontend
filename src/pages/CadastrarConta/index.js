@@ -8,12 +8,12 @@ import {
   Title,
   LightButton,
   DarkButton,
-  Message,
 } from '../../styles/GlobalStyles';
 import { CadastrarContaContainer, Form } from './styled';
 
 import history from '../../services/history';
 import axios from '../../services/axios';
+import ErrorMessages from '../../components/ErrorMessages';
 
 export default function CadastrarConta(props) {
   const [dataLeituraRelogio, setDataLeituraRelogio] = React.useState('');
@@ -64,13 +64,6 @@ export default function CadastrarConta(props) {
     }
   };
 
-  const exibeErrors = (fieldErrors) =>
-    fieldErrors.map((el) => (
-      <Message key={el} className="error">
-        {el}
-      </Message>
-    ));
-
   return (
     <Container>
       <CadastrarContaContainer>
@@ -81,7 +74,7 @@ export default function CadastrarConta(props) {
               <label htmlFor="data_leitura_relogio">
                 Data de leitura do relógio:
               </label>
-              {exibeErrors(dataLeituraRelogioErrors)}
+              <ErrorMessages errors={dataLeituraRelogioErrors} />
               <Input
                 type="date"
                 name="data_leitura_relogio"
@@ -91,7 +84,7 @@ export default function CadastrarConta(props) {
             </div>
 
             <label htmlFor="numero_leitura">Número da leitura:</label>
-            {exibeErrors(numeroLeituraErrors)}
+            <ErrorMessages errors={numeroLeituraErrors} />
             <Input
               type="number"
               name="numero_leitura"
@@ -100,7 +93,7 @@ export default function CadastrarConta(props) {
             />
 
             <label htmlFor="kw">KW:</label>
-            {exibeErrors(kwErrors)}
+            <ErrorMessages errors={kwErrors} />
             <Input
               type="number"
               name="kw"
@@ -109,7 +102,7 @@ export default function CadastrarConta(props) {
             />
 
             <label htmlFor="valor">Valor:</label>
-            {exibeErrors(valorErrors)}
+            <ErrorMessages errors={valorErrors} />
             <Input
               type="number"
               name="valor"
@@ -118,7 +111,7 @@ export default function CadastrarConta(props) {
             />
 
             <label htmlFor="data_pagamento">Data do pagamento:</label>
-            {exibeErrors(dataPagamentoErrors)}
+            <ErrorMessages errors={dataPagamentoErrors} />
             <Input
               type="date"
               name="data_pagamento"
@@ -127,7 +120,7 @@ export default function CadastrarConta(props) {
             />
 
             <label htmlFor="media_consumo">Média de consumo:</label>
-            {exibeErrors(mediaConsumoErrors)}
+            <ErrorMessages errors={mediaConsumoErrors} />
             <Input
               type="number"
               name="media_consumo"

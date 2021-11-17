@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
 
-import contas from './contas/sagas';
+import example from './example/sagas';
 
 export default function* rootSaga() {
-  return yield all([contas /* , outros sagas */]);
+  return yield all([example /* , outros sagas */]);
 }

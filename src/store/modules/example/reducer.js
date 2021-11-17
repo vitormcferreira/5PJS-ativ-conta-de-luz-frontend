@@ -1,9 +1,7 @@
 import { toast } from 'react-toastify';
 import * as types from '../types';
 
-const initialState = {
-  botaoClicado: false,
-};
+const initialState = {};
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -14,7 +12,7 @@ export default function reducer(state = initialState, action) {
     case types.BOTAO_CLICADO_SUCCESS: {
       toast.success('Botão clicado com sucesso');
       const newState = { ...state };
-      newState.botaoClicado = !newState.botaoClicado;
+      // edita estado
       return newState;
     }
 

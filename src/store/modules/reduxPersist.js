@@ -7,7 +7,7 @@ export default (reducers) => {
       // nome da aplicação
       key: 'REACT-BASE',
       storage,
-      whitelist: ['contas'],
+      whitelist: ['example'],
     },
     reducers
   );

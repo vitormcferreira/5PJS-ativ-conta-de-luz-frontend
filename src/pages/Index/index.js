@@ -10,6 +10,7 @@ import {
   IndexContainer,
   CadastrarContaLink,
 } from './styled';
+import { formataDinheiro } from '../../utils/functions';
 
 import axios from '../../services/axios';
 // import * as exampleActions from '../../store/modules/example/actions';
@@ -17,21 +18,32 @@ import axios from '../../services/axios';
 export default function Index() {
   // const dispatch = useDispatch();
   const [contas, setContas] = React.useState([]);
-  const [minMaxValor, setMinMaxValor] = React.useState({});
+  const [minMaxValor, setMinMaxValor] = React.useState({
+    minValor: '',
+    maxValor: '',
+  });
 
   // Atualiza a tabela de valores min e max.
   // Esta função deve ser executada sempre que uma conta for
   // apagada, editada ou inserida
   const atualizarMinMaxValor = async () => {
     const responseMinMaxValor = await axios.get('min_max_valor/');
-    setMinMaxValor(responseMinMaxValor.data);
+    setMinMaxValor({
+      minValor: formataDinheiro(responseMinMaxValor.data.minValor),
+      maxValor: formataDinheiro(responseMinMaxValor.data.maxValor),
+    });
   };
 
   // executado quando o componente é renderizado
   React.useEffect(() => {
     async function getData() {
       const responseContas = await axios.get('contas/');
-      setContas(responseContas.data);
+      setContas(
+        responseContas.data.map((atual) => ({
+          ...atual,
+          valor: formataDinheiro(atual.valor),
+        }))
+      );
       await atualizarMinMaxValor();
     }
     getData();

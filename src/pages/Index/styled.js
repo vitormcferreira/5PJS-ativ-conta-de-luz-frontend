@@ -38,7 +38,7 @@ export const TableContasMinMax = styled.table`
   grid-area: table-contas-minmax;
   td,
   th {
-    border: 1px solid black;
+    border: 1px solid ${colors.primaryGrayDarkColor};
     padding: 5px;
   }
   border-collapse: collapse;
@@ -49,7 +49,7 @@ export const TableContas = styled.table`
   grid-area: table-contas;
   td,
   th {
-    border: 1px solid black;
+    border: 1px solid ${colors.primaryGrayDarkColor};
     padding: 5px;
   }
   border-collapse: collapse;

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Container, Title } from '../../styles/GlobalStyles';
 import {
+  ReactPaginateCustom,
   TableContas,
   TableContasMinMax,
   IndexContainer,
@@ -17,7 +18,12 @@ import axios from '../../services/axios';
 
 export default function Index() {
   // const dispatch = useDispatch();
-  const [contas, setContas] = React.useState([]);
+  const [contas, setContas] = React.useState({
+    count: null,
+    num_pages: null,
+    current_page: null,
+    results: [],
+  });
   const [minMaxValor, setMinMaxValor] = React.useState({
     minValor: '',
     maxValor: '',
@@ -35,18 +41,22 @@ export default function Index() {
   };
 
   // executado quando o componente é renderizado
+  async function getContas(page = contas.current_page) {
+    const query = page ? `contas/?page=${page}` : 'contas/';
+    const responseContas = await axios.get(query);
+    const obj = {
+      ...responseContas.data,
+      results: responseContas.data.results.map((atual) => ({
+        ...atual,
+        valor: formataDinheiro(atual.valor),
+      })),
+    };
+    setContas(obj);
+  }
+
   React.useEffect(() => {
-    async function getData() {
-      const responseContas = await axios.get('contas/');
-      setContas(
-        responseContas.data.map((atual) => ({
-          ...atual,
-          valor: formataDinheiro(atual.valor),
-        }))
-      );
-      await atualizarMinMaxValor();
-    }
-    getData();
+    getContas();
+    atualizarMinMaxValor();
   }, []);
 
   const handleDelete = async (id, index) => {
@@ -54,16 +64,21 @@ export default function Index() {
       await axios.delete(`contas/${id}/`);
 
       // remove a conta da lista de contas
-      const temp = [...contas];
+      const temp = [...contas.results];
       temp.splice(index, 1);
-      setContas(temp);
+      setContas({ ...temp, results: temp });
 
       await atualizarMinMaxValor();
+      getContas();
 
       toast.success('Conta apagada com sucesso');
     } catch (e) {
       toast.error('Erro ao apagar conta');
     }
+  };
+
+  const handleSwitchPage = ({ selected }) => {
+    getContas(selected);
   };
 
   // function handleClick(e) {
@@ -107,7 +122,7 @@ export default function Index() {
             </tr>
           </thead>
           <tbody>
-            {contas.map((conta, index) => (
+            {contas.results.map((conta, index) => (
               <tr key={String(conta.id)}>
                 <td>{conta.data_leitura_relogio}</td>
                 <td>{conta.numero_leitura}</td>
@@ -131,6 +146,16 @@ export default function Index() {
             ))}
           </tbody>
         </TableContas>
+        <ReactPaginateCustom
+          onPageChange={(e) => handleSwitchPage(e)}
+          pageRangeDisplayed={3}
+          marginPagesDisplayed={1}
+          initialPage={0}
+          pageCount={contas.num_pages}
+          previousLabel="<"
+          nextLabel=">"
+          activeClassName="active-page"
+        />
       </IndexContainer>
     </Container>
   );

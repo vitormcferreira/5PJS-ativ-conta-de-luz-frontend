@@ -1,3 +1,4 @@
+import ReactPaginate from 'react-paginate';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import * as colors from '../../config/colors';
@@ -7,7 +8,8 @@ export const IndexContainer = styled.section`
   grid-template-areas:
     'title               title        title       '
     'table-contas-minmax ............ link         '
-    'table-contas        table-contas table-contas';
+    'table-contas        table-contas table-contas'
+    'pagination          pagination   pagination';
   grid-template-columns: 1fr 1fr 1fr;
   /* grid-template-rows: auto; */
   gap: 20px;
@@ -54,4 +56,34 @@ export const TableContas = styled.table`
   }
   border-collapse: collapse;
   overflow-x: auto;
+`;
+
+export const ReactPaginateCustom = styled(ReactPaginate)`
+  grid-area: pagination;
+
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+
+  li {
+    list-style: none;
+    background-color: ${colors.primarylightColor};
+    border: 1px solid ${colors.primaryGrayColor};
+    border-radius: 4px;
+    padding: 5px;
+
+    &:hover {
+      background-color: ${colors.primaryGrayColor};
+      cursor: pointer;
+    }
+  }
+
+  .active-page {
+    background-color: ${colors.primaryGrayDarkColor};
+  }
+
+  .active-page:hover {
+    background-color: ${colors.primaryGrayDarkColor};
+    cursor: default;
+  }
 `;

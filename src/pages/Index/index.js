@@ -19,9 +19,9 @@ import axios from '../../services/axios';
 export default function Index() {
   // const dispatch = useDispatch();
   const [contas, setContas] = React.useState({
-    count: null,
-    num_pages: null,
-    current_page: null,
+    count: 0,
+    num_pages: 1,
+    current_page: 1,
     results: [],
   });
   const [minMaxValor, setMinMaxValor] = React.useState({

@@ -78,7 +78,8 @@ export default function Index() {
   };
 
   const handleSwitchPage = ({ selected }) => {
-    getContas(selected);
+    // react-paginate utiliza contagem 0 based
+    getContas(selected + 1);
   };
 
   // function handleClick(e) {

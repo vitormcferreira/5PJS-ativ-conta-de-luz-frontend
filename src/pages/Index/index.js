@@ -1,6 +1,5 @@
 import React from 'react';
 import { FaTrashAlt, FaEdit, FaPlus } from 'react-icons/fa';
-// import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Container, Title } from '../../styles/GlobalStyles';
@@ -14,10 +13,8 @@ import {
 import { formataDinheiro } from '../../utils/functions';
 
 import axios from '../../services/axios';
-// import * as exampleActions from '../../store/modules/example/actions';
 
 export default function Index() {
-  // const dispatch = useDispatch();
   const [contas, setContas] = React.useState({
     count: 0,
     num_pages: 1,
@@ -81,11 +78,6 @@ export default function Index() {
     // react-paginate utiliza contagem 0 based
     getContas(selected + 1);
   };
-
-  // function handleClick(e) {
-  //   e.preventDefault();
-  //   dispatch(exampleActions.clicaBotaoRequest());
-  // }
 
   return (
     <Container>

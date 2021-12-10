@@ -105,7 +105,6 @@ export default function Index() {
             </tr>
           </tbody>
         </TableContasMinMax>
-        {/* TODO: adicionar icone */}
 
         <CadastrarContaLink id="cadastrar-conta-link" to="cadastrar/">
           <FaPlus size={30} />

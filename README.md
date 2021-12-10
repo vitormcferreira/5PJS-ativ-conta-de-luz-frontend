@@ -21,3 +21,7 @@ As informações a seguir se referem à planilha Excel de um usuário, que contr
     npm start
 
 Após iniciar o servidor, ele estará disponível em `http://locahost:3000` .
+
+
+## TODO
+- Formatar todas as datas para pt-BR

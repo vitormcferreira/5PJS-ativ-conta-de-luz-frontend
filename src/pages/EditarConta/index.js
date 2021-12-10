@@ -23,13 +23,14 @@ export default function EditarConta(props) {
   const [dataPagamento, setDataPagamento] = React.useState('');
   const [mediaConsumo, setMediaConsumo] = React.useState('');
 
-  const [dataLeituraRelogioErrors, setDataLeituraRelogioErrors] =
-    React.useState([]);
-  const [numeroLeituraErrors, setNumeroLeituraErrors] = React.useState([]);
-  const [kwErrors, setKwErrors] = React.useState([]);
-  const [valorErrors, setValorErrors] = React.useState([]);
-  const [dataPagamentoErrors, setDataPagamentoErrors] = React.useState([]);
-  const [mediaConsumoErrors, setMediaConsumoErrors] = React.useState([]);
+  const [errors, setErrors] = React.useState({
+    data_leitura_relogio: [],
+    numero_leitura: [],
+    kw: [],
+    valor: [],
+    data_pagamento: [],
+    media_consumo: [],
+  });
 
   const [conta, setConta] = React.useState({
     id: null,
@@ -40,15 +41,6 @@ export default function EditarConta(props) {
     data_pagamento: '',
     media_consumo: '',
   });
-
-  const salvaErrors = (errors) => {
-    setDataLeituraRelogioErrors(_.get(errors, 'data_leitura_relogio', []));
-    setNumeroLeituraErrors(_.get(errors, 'numero_leitura', []));
-    setKwErrors(_.get(errors, 'kw', []));
-    setValorErrors(_.get(errors, 'valor', []));
-    setDataPagamentoErrors(_.get(errors, 'data_pagamento', []));
-    setMediaConsumoErrors(_.get(errors, 'media_consumo', []));
-  };
 
   React.useEffect(() => {
     async function getData() {
@@ -85,10 +77,10 @@ export default function EditarConta(props) {
       });
 
       setConta(response.data);
+      setErrors({});
       toast.success('Conta editada com sucesso');
     } catch (err) {
-      toast.error('Erro ao salvar');
-      salvaErrors(err.response.data);
+      setErrors(err.response.data);
     }
   };
 
@@ -113,7 +105,7 @@ export default function EditarConta(props) {
               <label htmlFor="data_leitura_relogio">
                 Nova data de leitura do relógio:
               </label>
-              <ErrorMessages errors={dataLeituraRelogioErrors} />
+              <ErrorMessages errors={errors.data_leitura_relogio} />
               <Input
                 type="date"
                 name="data_leitura_relogio"
@@ -133,7 +125,7 @@ export default function EditarConta(props) {
               />
 
               <label htmlFor="numero_leitura">Novo número da leitura:</label>
-              <ErrorMessages errors={numeroLeituraErrors} />
+              <ErrorMessages errors={errors.numero_leitura} />
               <Input
                 type="number"
                 name="numero_leitura"
@@ -153,7 +145,7 @@ export default function EditarConta(props) {
               />
 
               <label htmlFor="kw">Novo KW:</label>
-              <ErrorMessages errors={kwErrors} />
+              <ErrorMessages errors={errors.kw} />
               <Input
                 type="number"
                 name="kw"
@@ -173,7 +165,7 @@ export default function EditarConta(props) {
               />
 
               <label htmlFor="valor">Novo valor:</label>
-              <ErrorMessages errors={valorErrors} />
+              <ErrorMessages errors={errors.valor} />
               <Input
                 type="number"
                 name="valor"
@@ -193,7 +185,7 @@ export default function EditarConta(props) {
               />
 
               <label htmlFor="data_pagamento">Nova data do pagamento:</label>
-              <ErrorMessages errors={dataPagamentoErrors} />
+              <ErrorMessages errors={errors.data_pagamento} />
               <Input
                 type="date"
                 name="data_pagamento"
@@ -212,7 +204,7 @@ export default function EditarConta(props) {
                 value={conta.media_consumo}
               />
               <label htmlFor="media_consumo">Nova média de consumo:</label>
-              <ErrorMessages errors={mediaConsumoErrors} />
+              <ErrorMessages errors={errors.media_consumo} />
               <Input
                 type="number"
                 name="media_consumo"

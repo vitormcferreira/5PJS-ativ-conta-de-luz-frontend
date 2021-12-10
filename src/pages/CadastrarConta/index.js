@@ -23,13 +23,14 @@ export default function CadastrarConta(props) {
   const [dataPagamento, setDataPagamento] = React.useState('');
   const [mediaConsumo, setMediaConsumo] = React.useState('');
 
-  const [dataLeituraRelogioErrors, setDataLeituraRelogioErrors] =
-    React.useState([]);
-  const [numeroLeituraErrors, setNumeroLeituraErrors] = React.useState([]);
-  const [kwErrors, setKwErrors] = React.useState([]);
-  const [valorErrors, setValorErrors] = React.useState([]);
-  const [dataPagamentoErrors, setDataPagamentoErrors] = React.useState([]);
-  const [mediaConsumoErrors, setMediaConsumoErrors] = React.useState([]);
+  const [errors, setErrors] = React.useState({
+    data_leitura_relogio: [],
+    numero_leitura: [],
+    kw: [],
+    valor: [],
+    data_pagamento: [],
+    media_consumo: [],
+  });
 
   const handleCancelar = () => {
     const prevPath = get(props, 'location.state.prevPath', '/');
@@ -38,15 +39,6 @@ export default function CadastrarConta(props) {
 
   const handleCadastrar = async (e) => {
     e.preventDefault();
-
-    const salvaErrors = (errors) => {
-      setDataLeituraRelogioErrors(get(errors, 'data_leitura_relogio', []));
-      setNumeroLeituraErrors(get(errors, 'numero_leitura', []));
-      setKwErrors(get(errors, 'kw', []));
-      setValorErrors(get(errors, 'valor', []));
-      setDataPagamentoErrors(get(errors, 'data_pagamento', []));
-      setMediaConsumoErrors(get(errors, 'media_consumo', []));
-    };
 
     try {
       await axios.post('contas/', {
@@ -58,9 +50,9 @@ export default function CadastrarConta(props) {
         media_consumo: mediaConsumo,
       });
       toast.success('Conta cadastrada com sucesso');
-      salvaErrors([]);
+      setErrors({});
     } catch (err) {
-      salvaErrors(err.response.data);
+      setErrors(err.response.data);
     }
   };
 
@@ -74,7 +66,7 @@ export default function CadastrarConta(props) {
               <label htmlFor="data_leitura_relogio">
                 Data de leitura do relógio:
               </label>
-              <ErrorMessages errors={dataLeituraRelogioErrors} />
+              <ErrorMessages errors={errors.data_leitura_relogio} />
               <Input
                 type="date"
                 name="data_leitura_relogio"
@@ -84,7 +76,7 @@ export default function CadastrarConta(props) {
             </div>
 
             <label htmlFor="numero_leitura">Número da leitura:</label>
-            <ErrorMessages errors={numeroLeituraErrors} />
+            <ErrorMessages errors={errors.numero_leitura} />
             <Input
               type="number"
               name="numero_leitura"
@@ -93,7 +85,7 @@ export default function CadastrarConta(props) {
             />
 
             <label htmlFor="kw">KW:</label>
-            <ErrorMessages errors={kwErrors} />
+            <ErrorMessages errors={errors.kw} />
             <Input
               type="number"
               name="kw"
@@ -102,7 +94,7 @@ export default function CadastrarConta(props) {
             />
 
             <label htmlFor="valor">Valor:</label>
-            <ErrorMessages errors={valorErrors} />
+            <ErrorMessages errors={errors.valor} />
             <Input
               type="number"
               name="valor"
@@ -111,7 +103,7 @@ export default function CadastrarConta(props) {
             />
 
             <label htmlFor="data_pagamento">Data do pagamento:</label>
-            <ErrorMessages errors={dataPagamentoErrors} />
+            <ErrorMessages errors={errors.data_pagamento} />
             <Input
               type="date"
               name="data_pagamento"
@@ -120,7 +112,7 @@ export default function CadastrarConta(props) {
             />
 
             <label htmlFor="media_consumo">Média de consumo:</label>
-            <ErrorMessages errors={mediaConsumoErrors} />
+            <ErrorMessages errors={errors.media_consumo} />
             <Input
               type="number"
               name="media_consumo"

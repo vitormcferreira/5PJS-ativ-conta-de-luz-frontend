@@ -90,7 +90,7 @@ export default function Index() {
   return (
     <Container>
       <IndexContainer>
-        <Title>Contas de Luz</Title>
+        <Title>Gerenciador de Contas de Luz</Title>
         <TableContasMinMax>
           <thead>
             <tr>

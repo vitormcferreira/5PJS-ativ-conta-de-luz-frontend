@@ -20,10 +20,6 @@ export default createGlobalStyle`
     /* background-color: ${primaryDarkColor}; */
   }
 
-  html, body, #root {
-    height: 100%;
-  }
-
   button:active {
     border-color: ${primaryDarkColor};
   }

@@ -54,6 +54,7 @@ export default function Index() {
   React.useEffect(() => {
     getContas();
     atualizarMinMaxValor();
+    // TODO: corrigir problema eslint(react-hooks/exhaustive-deps) da linha abaixo
   }, []);
 
   const handleDelete = async (id, index) => {

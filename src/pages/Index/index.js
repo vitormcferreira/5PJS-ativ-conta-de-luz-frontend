@@ -45,7 +45,6 @@ export default function Index() {
       ...responseContas.data,
       results: responseContas.data.results.map((atual) => ({
         ...atual,
-        valor: atual.valor,
       })),
     };
     setContas(obj);

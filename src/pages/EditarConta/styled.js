@@ -20,15 +20,6 @@ export const Form = styled.form`
     max-width: 100%;
     gap: 5px;
 
-    input:focus {
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-
-    input {
-      width: 100%;
-      margin-bottom: 30px;
-    }
-
     .field-group {
       display: grid;
       grid-template-areas:

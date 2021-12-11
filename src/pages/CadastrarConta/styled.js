@@ -16,15 +16,6 @@ export const Form = styled.form`
     display: flex;
     flex-direction: column;
     max-width: 300px;
-
-    input:focus {
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-
-    input {
-      width: 100%;
-      margin-bottom: 30px;
-    }
   }
 
   .buttons {

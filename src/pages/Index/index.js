@@ -10,7 +10,7 @@ import {
   IndexContainer,
   CadastrarContaLink,
 } from './styled';
-import { formataDinheiro } from '../../utils/functions';
+import { formataData, formataDinheiro } from '../../utils/functions';
 
 import axios from '../../services/axios';
 
@@ -116,11 +116,11 @@ export default function Index() {
           <tbody>
             {contas.results.map((conta, index) => (
               <tr key={String(conta.id)}>
-                <td>{conta.data_leitura_relogio}</td>
+                <td>{formataData(conta.data_leitura_relogio)}</td>
                 <td>{conta.numero_leitura}</td>
                 <td>{conta.kw}</td>
                 <td>{formataDinheiro(conta.valor)}</td>
-                <td>{conta.data_pagamento}</td>
+                <td>{formataData(conta.data_pagamento)}</td>
                 <td>{conta.media_consumo}</td>
                 <td>
                   <Link to={`editar/${conta.id}/`} title="Editar">

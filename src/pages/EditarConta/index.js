@@ -14,6 +14,7 @@ import { CadastrarContaContainer, Form } from './styled';
 import history from '../../services/history';
 import axios from '../../services/axios';
 import ErrorMessages from '../../components/ErrorMessages';
+import { formataDinheiro } from '../../utils/functions';
 
 export default function EditarConta(props) {
   const [dataLeituraRelogio, setDataLeituraRelogio] = React.useState('');
@@ -157,11 +158,11 @@ export default function EditarConta(props) {
             <div className="field-group">
               <label htmlFor="old_valor">Valor:</label>
               <Input
-                type="number"
+                type="text"
                 name="old_valor"
                 id="old_valor"
                 disabled
-                value={conta.valor}
+                value={formataDinheiro(conta.valor)}
               />
 
               <label htmlFor="valor">Novo valor:</label>

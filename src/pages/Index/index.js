@@ -32,8 +32,8 @@ export default function Index() {
   const atualizarMinMaxValor = async () => {
     const responseMinMaxValor = await axios.get('min_max_valor/');
     setMinMaxValor({
-      minValor: formataDinheiro(responseMinMaxValor.data.minValor),
-      maxValor: formataDinheiro(responseMinMaxValor.data.maxValor),
+      minValor: responseMinMaxValor.data.minValor,
+      maxValor: responseMinMaxValor.data.maxValor,
     });
   };
 
@@ -45,7 +45,7 @@ export default function Index() {
       ...responseContas.data,
       results: responseContas.data.results.map((atual) => ({
         ...atual,
-        valor: formataDinheiro(atual.valor),
+        valor: atual.valor,
       })),
     };
     setContas(obj);
@@ -93,8 +93,8 @@ export default function Index() {
           </thead>
           <tbody>
             <tr>
-              <td>{minMaxValor.minValor}</td>
-              <td>{minMaxValor.maxValor}</td>
+              <td>{formataDinheiro(minMaxValor.minValor)}</td>
+              <td>{formataDinheiro(minMaxValor.maxValor)}</td>
             </tr>
           </tbody>
         </TableContasMinMax>
@@ -120,7 +120,7 @@ export default function Index() {
                 <td>{conta.data_leitura_relogio}</td>
                 <td>{conta.numero_leitura}</td>
                 <td>{conta.kw}</td>
-                <td>{conta.valor}</td>
+                <td>{formataDinheiro(conta.valor)}</td>
                 <td>{conta.data_pagamento}</td>
                 <td>{conta.media_consumo}</td>
                 <td>

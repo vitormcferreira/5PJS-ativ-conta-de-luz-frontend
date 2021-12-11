@@ -2,6 +2,8 @@
 
 Atividade proposta pelo professor Ricardo Marciano da FAETERJ-Rio.
 
+![Demonstração](./conteudo/demo.gif)
+
 ## Cenário
 As informações a seguir se referem à planilha Excel de um usuário, que controla os gastos mensais com sua conta de luz. Para cada conta de luz cadastra-se: data em que a leitura do relógio de luz foi realizada, número da leitura, quantidade de Kw gasto no mês, valor a pagar pela conta, data do pagamento e média de consumo. Mensalmente, são realizadas as seguintes pesquisas:
   - verificação do mês de menor consumo;

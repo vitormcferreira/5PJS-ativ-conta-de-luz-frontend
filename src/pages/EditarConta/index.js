@@ -8,6 +8,7 @@ import {
   Title,
   LightButton,
   DarkButton,
+  CustomDatePicker,
 } from '../../styles/GlobalStyles';
 import { CadastrarContaContainer, Form } from './styled';
 
@@ -17,11 +18,13 @@ import ErrorMessages from '../../components/ErrorMessages';
 import { formataDinheiro } from '../../utils/functions';
 
 export default function EditarConta(props) {
-  const [dataLeituraRelogio, setDataLeituraRelogio] = React.useState('');
+  const [dataLeituraRelogio, setDataLeituraRelogio] = React.useState(
+    new Date()
+  );
   const [numeroLeitura, setNumeroLeitura] = React.useState('');
   const [kw, setKw] = React.useState('');
   const [valor, setValor] = React.useState('');
-  const [dataPagamento, setDataPagamento] = React.useState('');
+  const [dataPagamento, setDataPagamento] = React.useState(new Date());
   const [mediaConsumo, setMediaConsumo] = React.useState('');
 
   const [errors, setErrors] = React.useState({
@@ -35,11 +38,11 @@ export default function EditarConta(props) {
 
   const [conta, setConta] = React.useState({
     id: null,
-    data_leitura_relogio: '',
+    data_leitura_relogio: new Date(),
     numero_leitura: '',
     kw: '',
     valor: '',
-    data_pagamento: '',
+    data_pagamento: new Date(),
     media_consumo: '',
   });
 
@@ -69,11 +72,13 @@ export default function EditarConta(props) {
 
     try {
       const response = await axios.patch(`contas/${conta.id}/`, {
-        data_leitura_relogio: dataLeituraRelogio || undefined,
+        data_leitura_relogio:
+          dataLeituraRelogio && dataLeituraRelogio.toLocaleDateString('pt-BR'),
         numero_leitura: numeroLeitura || undefined,
         kw: kw || undefined,
         valor: valor || undefined,
-        data_pagamento: dataPagamento || undefined,
+        data_pagamento:
+          dataPagamento && dataPagamento.toLocaleDateString('pt-BR'),
         media_consumo: mediaConsumo || undefined,
       });
 
@@ -95,23 +100,27 @@ export default function EditarConta(props) {
               <label htmlFor="old_data_leitura_relogio">
                 Data de leitura do relógio:
               </label>
-              <Input
-                type="date"
+              <CustomDatePicker
                 name="old_data_leitura_relogio"
                 id="old_data_leitura_relogio"
-                disabled
                 value={conta.data_leitura_relogio}
+                format="dd/MM/y"
+                clearIcon={false}
+                calendarIcon={false}
+                disabled
               />
 
               <label htmlFor="data_leitura_relogio">
                 Nova data de leitura do relógio:
               </label>
               <ErrorMessages errors={errors.data_leitura_relogio} />
-              <Input
-                type="date"
+
+              <CustomDatePicker
                 name="data_leitura_relogio"
                 id="data_leitura_relogio"
-                onChange={(e) => setDataLeituraRelogio(e.target.value)}
+                value={dataLeituraRelogio}
+                format="dd/MM/y"
+                onChange={(date) => setDataLeituraRelogio(date)}
               />
             </div>
 
@@ -177,21 +186,24 @@ export default function EditarConta(props) {
 
             <div className="field-group">
               <label htmlFor="old_data_pagamento">Data do pagamento:</label>
-              <Input
-                type="date"
+              <CustomDatePicker
                 name="old_data_pagamento"
                 id="old_data_pagamento"
-                disabled
                 value={conta.data_pagamento}
+                format="dd/MM/y"
+                clearIcon={false}
+                calendarIcon={false}
+                disabled
               />
 
               <label htmlFor="data_pagamento">Nova data do pagamento:</label>
               <ErrorMessages errors={errors.data_pagamento} />
-              <Input
-                type="date"
+              <CustomDatePicker
                 name="data_pagamento"
                 id="data_pagamento"
-                onChange={(e) => setDataPagamento(e.target.value)}
+                value={dataPagamento}
+                format="dd/MM/y"
+                onChange={(date) => setDataPagamento(date)}
               />
             </div>
 

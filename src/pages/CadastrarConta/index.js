@@ -8,6 +8,7 @@ import {
   Title,
   LightButton,
   DarkButton,
+  CustomDatePicker,
 } from '../../styles/GlobalStyles';
 import { CadastrarContaContainer, Form } from './styled';
 
@@ -16,11 +17,13 @@ import axios from '../../services/axios';
 import ErrorMessages from '../../components/ErrorMessages';
 
 export default function CadastrarConta(props) {
-  const [dataLeituraRelogio, setDataLeituraRelogio] = React.useState('');
+  const [dataLeituraRelogio, setDataLeituraRelogio] = React.useState(
+    new Date()
+  );
   const [numeroLeitura, setNumeroLeitura] = React.useState('');
   const [kw, setKw] = React.useState('');
   const [valor, setValor] = React.useState('');
-  const [dataPagamento, setDataPagamento] = React.useState('');
+  const [dataPagamento, setDataPagamento] = React.useState(new Date());
   const [mediaConsumo, setMediaConsumo] = React.useState('');
 
   const [errors, setErrors] = React.useState({
@@ -42,11 +45,13 @@ export default function CadastrarConta(props) {
 
     try {
       await axios.post('contas/', {
-        data_leitura_relogio: dataLeituraRelogio,
+        data_leitura_relogio:
+          dataLeituraRelogio && dataLeituraRelogio.toLocaleDateString('pt-BR'),
         numero_leitura: numeroLeitura,
         kw,
         valor,
-        data_pagamento: dataPagamento,
+        data_pagamento:
+          dataPagamento && dataPagamento.toLocaleDateString('pt-BR'),
         media_consumo: mediaConsumo,
       });
       toast.success('Conta cadastrada com sucesso');
@@ -66,11 +71,12 @@ export default function CadastrarConta(props) {
               Data de leitura do relógio:
             </label>
             <ErrorMessages errors={errors.data_leitura_relogio} />
-            <Input
-              type="date"
+            <CustomDatePicker
               name="data_leitura_relogio"
               id="data_leitura_relogio"
-              onChange={(e) => setDataLeituraRelogio(e.target.value)}
+              value={dataLeituraRelogio}
+              onChange={(date) => setDataLeituraRelogio(date)}
+              format="dd/MM/y"
             />
 
             <label htmlFor="numero_leitura">Número da leitura:</label>
@@ -102,11 +108,12 @@ export default function CadastrarConta(props) {
 
             <label htmlFor="data_pagamento">Data do pagamento:</label>
             <ErrorMessages errors={errors.data_pagamento} />
-            <Input
-              type="date"
+            <CustomDatePicker
               name="data_pagamento"
               id="data_pagamento"
-              onChange={(e) => setDataPagamento(e.target.value)}
+              value={dataPagamento}
+              onChange={(date) => setDataPagamento(date)}
+              format="dd/MM/y"
             />
 
             <label htmlFor="media_consumo">Média de consumo:</label>

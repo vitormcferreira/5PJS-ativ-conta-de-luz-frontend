@@ -1,4 +1,5 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle, css } from 'styled-components';
+import DatePicker from 'react-date-picker';
 import {
   primarylightColor,
   primaryDarkColor,
@@ -48,11 +49,33 @@ export const Title = styled.h1`
   font-size: 40px;
 `;
 
-export const Input = styled.input`
+const styledInputSpace = css`
+  width: 100%;
+  margin-bottom: 30px;
+`;
+
+const styledInput = css`
   font-size: 20px;
   padding: 10px;
   border: 2px solid ${primaryGrayColor};
   border-radius: 5px;
+
+  &:focus {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+`;
+
+export const Input = styled.input`
+  ${styledInputSpace}
+  ${styledInput}
+`;
+
+export const CustomDatePicker = styled(DatePicker)`
+  ${styledInputSpace}
+
+  .react-date-picker__wrapper {
+    ${styledInput}
+  }
 `;
 
 const Button = styled.button`

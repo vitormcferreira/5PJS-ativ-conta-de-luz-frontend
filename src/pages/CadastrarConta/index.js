@@ -62,18 +62,16 @@ export default function CadastrarConta(props) {
         <Title>Cadastrar conta de Luz</Title>
         <Form>
           <div className="fields">
-            <div>
-              <label htmlFor="data_leitura_relogio">
-                Data de leitura do relógio:
-              </label>
-              <ErrorMessages errors={errors.data_leitura_relogio} />
-              <Input
-                type="date"
-                name="data_leitura_relogio"
-                id="data_leitura_relogio"
-                onChange={(e) => setDataLeituraRelogio(e.target.value)}
-              />
-            </div>
+            <label htmlFor="data_leitura_relogio">
+              Data de leitura do relógio:
+            </label>
+            <ErrorMessages errors={errors.data_leitura_relogio} />
+            <Input
+              type="date"
+              name="data_leitura_relogio"
+              id="data_leitura_relogio"
+              onChange={(e) => setDataLeituraRelogio(e.target.value)}
+            />
 
             <label htmlFor="numero_leitura">Número da leitura:</label>
             <ErrorMessages errors={errors.numero_leitura} />

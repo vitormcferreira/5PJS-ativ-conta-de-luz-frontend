@@ -219,7 +219,7 @@ export default function EditarConta(props) {
               Cancelar
             </LightButton>
             <DarkButton type="submit" onClick={handleEditar}>
-              Cadastrar
+              Salvar
             </DarkButton>
           </div>
         </Form>

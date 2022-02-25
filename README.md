@@ -24,6 +24,7 @@ As informações a seguir se referem à planilha Excel de um usuário, que contr
 
 Após iniciar o servidor, ele estará disponível em `http://locahost:3000` .
 
+Para que a aplicação funcione corretamente é preciso também do [backend](https://github.com/vitormcferreira/5PJS-ativ-conta-de-luz-backend).
 
 ## TODO
   - Validação frontend
